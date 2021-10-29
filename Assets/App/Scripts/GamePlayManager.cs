@@ -44,14 +44,30 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
-    private void ChangeParent()
+    public void ChangeParent()
     {
         GameObject temp = tileArray[0];
 
         foreach (GameObject tile in tileArray)
         {
-            
+            tile.transform.parent = null;
         }
+
+        temp.GetComponent<TileController>().CancelInvoke("MoveTile");
+
+        temp.transform.position = tileArray[tileArray.Count - 1].GetComponent<TileController>().endPoint.position;
+
+        tileArray.Remove(temp);
+
+        tileArray.Add(temp);
+
+        for(int i=1;i<tileArray.Count;i++)
+        {
+            tileArray[i].transform.parent = tileArray[0].transform;
+        }
+
+        tileArray[0].GetComponent<TileController>().InvokeRepeating("MoveTile", 0, 0.01f);
+
     }
 
 }

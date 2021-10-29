@@ -16,7 +16,7 @@ public class TileController : MonoBehaviour
 
         if(transform.position.z>= resetPosition)
         {
-            GamePlayerManager.instance.ChangeParent();
+            GamePlayManager.instance.ChangeParent();
         }
     }
 }
